@@ -7,9 +7,6 @@ from openai import OpenAI
 # from .models import Resume
 # from .serializers import ResumeSerializer
 
-api_key = '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'
-client = OpenAI(api_key='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')
-
 def scoreResume():
     response=client.chat.completions.create(
         model='gpt-4-0125-preview',
