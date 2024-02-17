@@ -1,0 +1,126 @@
+.detail-modal-header {
+    height: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.detail-modal-header-content {
+    padding: 32px 24px 0px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detail-modal-header-content p {
+    margin: 0;
+}
+
+.detail-modal-text {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #101828;
+}
+
+.detail-modal-supporting-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #475467;
+}
+
+.detail-modal-cards {
+    padding: 0px 24px 0px 24px;
+}
+
+.detail-modal-tab {
+    padding: 4px;
+    border-radius: 10px;
+    display: flex;
+    gap: 4px;
+    border: 1px solid #EAECF0;
+    background-color: #F9FAFB;
+    width: fit-content;
+}
+
+.tab-button {
+    height: 20px;
+    padding: 8px 12px 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #344054;
+    cursor: pointer;
+}
+
+.active-button {
+    box-shadow: 0px 1px 3px 0px #1018281A;
+    background: #FFFFFF;
+}
+
+.detail-modal-details {
+    padding: 16px 32px 32px 32px;
+}
+
+.detail-modal-details-container{
+    display: flex;
+    flex-direction: column;
+    height: 204px;
+    overflow-y: scroll;
+    gap: 12px;
+}
+
+.detail-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.detail-row-label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #344054;
+}
+
+.detail-row-value {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #475467;
+}
+
+.project-detail{
+    display: flex;
+    flex-direction: column;
+    height: 204px;
+    overflow-y: scroll;
+    gap: 20px;
+}
+
+.project-container{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.experience-detail{
+    display: flex;
+    flex-direction: column;
+    height: 204px;
+    overflow-y: scroll;
+    gap: 20px;
+}

@@ -1,0 +1,150 @@
+.modal-header {
+    padding-bottom: 20px;
+    display: flex;
+    width: 100%;
+}
+
+.modal-header-content {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0px 0px;
+    gap: 16px;
+}
+
+.modal-header-icon {
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #EAECF0;
+    box-shadow: 0px 1px 2px 0px #1018280D;
+    color: #344054;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-header-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.role {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #101828;
+    width: 592px;
+    height: 28px;
+    margin: 0;
+}
+
+.jd {
+    width: 592px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #475467;
+    margin: 0;
+}
+
+.modal-close-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    padding: 8px;
+    position: relative;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.modal-close-icon svg {
+    color: #98A2B3;
+    width: 24px;
+    height: 24px;
+}
+
+.modal-content {
+    padding: 0px 24px 0px 24px;
+    gap: 20px;
+    width: 100%;
+}
+
+.role-input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.role-input-box label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    color: #344054;
+}
+
+.role-input-box input {
+    border: 1px solid #D0D5DD;
+    box-shadow: 0px 1px 2px 0px #1018280D;
+    padding: 10px 14px 10px 14px;
+    border-radius: 8px;
+}
+
+.jd-input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.jd-input label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    color: #344054;
+}
+
+.jd-input textarea {
+    padding: 12px 14px 12px 14px;
+    border-radius: 8px;
+    border: 1px;
+    border: 1px solid #D0D5DD;
+    box-shadow: 0px 1px 2px 0px #1018280D;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: #667085;
+}
+
+.jd-textarea {
+    resize: none;
+}
+
+.modal-btns{
+    padding: 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-btns button {
+    width: 100%;
+    padding: 10px 48px 10px 48px;
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px 0px #1018280D;
+}
+
+.modal-btns button:hover{
+    box-shadow: 0px 1px 4px 0px #1018286e;
+    cursor: pointer;
+}

@@ -1,0 +1,133 @@
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 120px 24px 24px 24px;
+    gap: 24px;
+}
+
+.dropzone-container {
+    width: 512px;
+    padding: 24px;
+    border-radius: 12px;
+    gap: 4px;
+    border: 2px solid #5E5ADB;
+}
+
+.dropzone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropzone p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+}
+
+.dropzone span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #6941C6;
+    cursor: pointer;
+}
+
+.dropzone-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropzone-icon svg {
+    width: 40px;
+    height: 40px;
+    opacity: 70%;
+}
+
+.selected-files {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    width: 560px;
+}
+
+.file-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+    border: 1px solid #EAECF0;
+    border-radius: 12px;
+    width: calc(100% - 24px);
+    padding: 0 12px;
+}
+
+.pdf-icon {
+    width: 40px;
+    height: 40px;
+    color: #D92D20;
+}
+
+.filename {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #344054;
+}
+
+.filesize {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #475467;
+}
+
+.remove-btn {
+    width: 16px;
+    height: 16px;
+    color: #5E5ADB;
+}
+
+.remove-btn:hover {
+    cursor: pointer;
+    background-color: #dddddd34;
+    border-radius: 50%;
+}
+
+.landing-page-btns{
+    display: flex;
+    gap: 6px;
+}
+
+.landing-page-btns button {
+    padding: 10px 48px 10px 48px;
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px 0px #1018280D;
+}
+
+.cancel-btn{
+    background-color: white;
+    border: 1px solid #D0D5DD;
+    color: black;
+}
+
+.submit-btn{
+    background-color: #5E5ADB;
+    color: white;
+    border: 1px solid #423DDB;
+}
+
+.landing-page-btns button:hover{
+    box-shadow: 0px 1px 4px 0px #1018286e;
+    cursor: pointer;
+}
