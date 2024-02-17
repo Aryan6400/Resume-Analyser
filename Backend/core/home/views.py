@@ -4,8 +4,13 @@ from rest_framework.views import APIView
 from PyPDF2 import PdfReader
 from io import BytesIO
 from openai import OpenAI
+from dotenv import load_dotenv, dotenv_values
 # from .models import Resume
 # from .serializers import ResumeSerializer
+
+config=dotenv_values(".env")
+
+client = OpenAI(api_key=config['OPENAI_API_KEY'])
 
 def scoreResume():
     response=client.chat.completions.create(
