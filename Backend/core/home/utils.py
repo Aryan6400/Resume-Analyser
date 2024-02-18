@@ -136,7 +136,7 @@ function_descriptions = [
                     "description": "Professional experience details of the person from the resume. The details include the provided properties. If any property is not found, return an empty string."
                 },  
             },
-            "required": ["title", "role", "short_description", "organisation", "relevancy_score"]
+            "required": ["college_detail", "name", "branch", "degree", "cgpa", "start", "end", "title", "role", "short_description", "tech_stack", "time_duration", "duration", "organisation", "relevancy_score"]
         }
     }
 ]
