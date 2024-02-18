@@ -6,7 +6,7 @@ import { SnackbarProvider } from 'notistack';
 import Result from './components/Result/Result';
 
 function App() {
-  
+
   return (
     <div className="App">
       <SnackbarProvider
