@@ -6,13 +6,33 @@ from io import BytesIO
 from openai import OpenAI
 from dotenv import dotenv_values
 import json
-from home.utils import function_descriptions
+from home.utils import function_descriptions, scoring_function
 
 config=dotenv_values(".env")
 
 client = OpenAI(api_key=config['OPENAI_API_KEY'])
 
-def scoreResume(resume, role, jd):
+def getScore(data):
+    score=0
+    max_score=0
+    score=score+data["tech_skill_score"]["total_score"]+data["soft_skill_score"]+data["educational_score"]+data["courses_score"]+data["achievement_score"]
+    max_score=max_score+data["tech_skill_score"]["max_score"]+data["soft_skill_score"]+7+data["courses_score"]+data["achievement_score"]
+    temp=0
+    for i in range(len(data["project_score"])):
+        temp+=data["project_score"][i]
+    temp=temp/len(data["project_score"])
+    score+=temp
+    max_score+=10
+    temp=0
+    for i in range(len(data["experience_score"])):
+        temp+=data["experience_score"][i]
+    temp=temp/len(data["experience_score"])
+    score+=temp
+    max_score+=10
+    result=(score/max_score)*100
+    return result
+
+def getResumeDetails(resume, role, jd):
     response=client.chat.completions.create(
         model='gpt-4-0125-preview',
         messages=[
@@ -23,6 +43,22 @@ def scoreResume(resume, role, jd):
     )
     data = json.loads(response.choices[0].message.function_call.arguments)
     return data
+
+def scoreResume(resume, role, jd):
+    response=client.chat.completions.create(
+        model='gpt-4-0125-preview',
+        messages=[
+            {"role": "user", "content": f"Job: {role} \n Job Description: {jd} \n Resume: \n{resume}"}
+        ],
+        functions=scoring_function,
+        function_call="auto"
+    )
+    data = json.loads(response.choices[0].message.function_call.arguments)
+    score=getScore(data)
+    details=None
+    if score>70:
+        details=getResumeDetails(resume, role, jd)
+    return {"verdict":details, "name":data["name"], "email":data["email"], "score":score}
 
 
 class index(APIView):
@@ -51,8 +87,8 @@ class index(APIView):
 
         for i in range(len(data["extracted_text"])):
             res=scoreResume(data["extracted_text"][i], data["role"], data["jd"])
-            initial_result[i]={"verdict":res, "url":data["urls"][i]}
+            initial_result[i]={"verdict":res["verdict"], "score":res["score"], "name":res["name"], "email":res["email"], "url":data["urls"][i]}
 
-        result = sorted(initial_result, key=lambda x: x["verdict"]["resume_score"], reverse=True)
+        result = sorted(initial_result, key=lambda x: x["score"], reverse=True)
 
         return Response(result, status=status.HTTP_201_CREATED)

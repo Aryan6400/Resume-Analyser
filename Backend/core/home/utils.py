@@ -1,18 +1,10 @@
 function_descriptions = [
     {
         "name": "analyse_resume",
-        "description": "Scans a resume and returns relevant information. If any of the asked information is not found, return an empty string.",
+        "description": "Scans a resume and returns the relevant information. If any of the asked information is not found, return an empty string.",
         "parameters":{
             "type": "object",
             "properties":{
-                "name":{
-                    "type": "string",
-                    "description": "Name of the Person"
-                },
-                "email":{
-                    "type": "string",
-                    "description": "Email of the Person"
-                },
                 "college_detail":{
                     "type": "object",
                     "properties":{
@@ -142,45 +134,76 @@ function_descriptions = [
                         }
                     },
                     "description": "Professional experience details of the person from the resume. The details include the provided properties. If any property is not found, return an empty string."
-                },
-
-                "resume_score":{
-                    "type":"number",
-                    "description":"""Relevancy score of the resume for the given Role and Job Description. Score should be between 0-100. Score the given resume based on the provided method for evaluating technical skills, soft skills, educational background, projects/hackathons, past experiences, coursework, certifications, achievements, and DSA/competitive programming background.
-
-                    1. Technical Skills and Tools Matching:
-                    - Assign a score of 2.5 for must-have skills, and 1 for good-to-have or bonus skills. For all the skills in resume matching with those mentioned in the job description add the scores to get total score for this section. The max_score for this section would be 2.5*(no. of required skills in jd) + 1*(no. of bonus skills in jd)
-
-                    2. Soft Skills:
-                    - Assign a score of 0.25 for each soft skill in jd. Give a score of 0.25 for demonstrated usage or cultivation of the soft skill in extracurricular activities or positions of responsibility. Total score for this section would be 0.25*(no. of matching soft skills). Max score here would be 0.25*(no. of soft skills)
-
-                    3. Educational Details:
-                    - Evaluate based on factors like CGPA, branch, degree, and college. Branch close to the jd scores more. High cgpa also scores more. If the college is very good, the score is more. Assign a score out of 7, considering the relevance to the job description and the reputation of the educational institution. Max score = 7.
-
-                    4. Projects/Hackathons:
-                    - Assign a score out of 10 for each project/hackathon based on relevance to the job description, technical keywords matching, and domain alignment. A project can have a score of 0 if it's domain doesn't align with the job. Like a case study project for a software role. Sum and average them to get a score out of 10. Max score here is 10.
-
-                    5. Past Experiences/Jobs/Internships:
-                    - Evaluation is same as project with some extra factors like duration, mode (remote or onsite), and the reputation of the companies. Assign a score out of 10. Here also an experience can have 0 score. Sum and average them to get a score out of 10. Max score here is 10.
-
-                    6. Coursework:
-                    - Assign a score out of 0.25 for relevant coursework. Only consider those courses if they are relevant course and if they are good, you can give a score of 0.25 for that. score=0.25*(no of relevant courses) and max score=0.25*(no. of relevant courses)
-
-                    7. Certifications:
-                    - Same as coursework with score of 0.25. Relevance and level of certifications also matter. Some are better than others and have a weightage of 0.5 like AWS certificates or high level/advanced technical certifications like DevOps, deep learning or CFA for finance profile etc.
-
-                    8. Achievements:
-                    - Consider relevant achievements aligned with the job description. Assign a score out of 0.5.
-
-                    9. DSA and Competitive Programming Background:
-                    - Evaluate based on ratings in coding platforms and ranks in coding competitions. Assign a score of 0.5 for a strong background in DSA or competitive programming. Good background include high ratings in cp platforms like codechef, codeforces, leetcode, atcoder, etc. Good ranks in coding competitions are also good and have 0.5 score. ICPC, hackercup, kickstart has a score of 0.75 only if very good global rank is given.
-
-                    Calculate the total score by adding scores from all sections and keep a total max score by adding max score of all sections for normalization. Divide the total score by the max total score and scale it to a score out of 100.
-                    You have to follow this method but also do your own magic to make the score as perfect and close as possible.
-                    """
-                }
+                },  
             },
-            "required": ["name", "resume_score", "relevancy_score"]
+            "required": ["title", "role", "short_description", "organisation", "relevancy_score"]
+        }
+    }
+]
+
+scoring_function = [
+    {
+        "name": "score_resume",
+        "description": "Scans a resume and scores the resume out of 100 based on the role and job description. Return the score for every resume and the name and email. If name or email is not found, return empty string",
+        "parameters":{
+            "type":"object",
+            "properties":{
+                "name":{
+                    "type":"string",
+                    "description":"Name of the person"
+                },
+                "email":{
+                    "type":"string",
+                    "description":"Email of the person"
+                },
+                "tech_skill_score":{
+                    "type":"object",
+                    "properties":{
+                        "total_score":{
+                            "type":"number",
+                            "description":"total score of all the matching must have and bonus skills in the resume."
+                        },
+                        "max_score":{
+                            "type":"number",
+                            "description":"Max score one can get with all the jd skills. The max_score would be 2.5*(no. of required skills in jd) + 1*(no. of bonus skills in jd)"
+                        }
+                    },
+                    "description":"Assign a score of 2.5 for must-have skills, and 1 for good-to-have or bonus skills. For all the skills in resume matching with those mentioned in the job description add the scores to get total score for this section. The max_score for this section would be 2.5*(no. of required skills in jd) + 1*(no. of bonus skills in jd)"
+                },
+                "soft_skill_score":{
+                    "type":"number",
+                    "description":"Assign a score of 0.25 for each soft skill in jd. Give a score of 0.25 for demonstrated usage or cultivation of the soft skill in extracurricular activities or positions of responsibility. Total score for this section would be 0.25*(no. of matching soft skills). Max score here would be 0.25*(no. of soft skills)"
+                },
+                "educational_score":{
+                    "type":"number",
+                    "description":"Evaluate based on factors like CGPA, branch, degree, and college. Branch close to the jd scores more. High cgpa also scores more. If the college is very good, the score is more. Assign a score out of 7, considering the relevance to the job description and the reputation of the educational institution. Max score = 7."
+                },
+                "project_score":{
+                    "type":"array",
+                    "items":{
+                        "type":"number",
+                        "description":"Score of the project out of 10 based on relevance to the job description, technical keywords matching, and domain alignment. A project can have a score of 0 if it's domain doesn't align with the job."
+                    },
+                    "description":"Assign a score out of 10 for each project/hackathon."
+                },
+                "experience_score":{
+                    "type":"array",
+                    "items":{
+                        "type":"number",
+                        "description":"Evaluation is same as project with some extra factors like duration, mode (remote or onsite), and the reputation of the companies. Assign a score out of 10. Here also an experience can have 0 score."
+                    },
+                    "description":"Assign a score out of 10 for each job/internship experience."
+                },
+                "courses_score":{
+                    "type":"number",
+                    "description":"Assign a score out of 0.25 for relevant coursework/certification. Only consider those courses/certifications if they are relevant and if they are good, you can give a score of 0.25 for that. score=0.25*(no of relevant courses/certifications) and max score=0.25*(no. of relevant courses/certifications)"
+                },
+                "achievement_score":{
+                    "type":"number",
+                    "description":"Consider relevant achievements aligned with the job description. Assign a score out of 0.5."
+                },
+            },
+            "required": ["name", "email", "tech_skill_score", "soft_skill_score", "educational_score", "project_score", "experience_score", "courses_score", "achievement_score"]
         }
     }
 ]
