@@ -82,7 +82,6 @@
 .detail-row {
     display: flex;
     gap: 16px;
-    align-items: center;
 }
 
 .detail-row-label {

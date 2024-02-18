@@ -104,7 +104,7 @@
     border-radius: 50%;
 }
 
-.landing-page-btns{
+.landing-page-btns {
     display: flex;
     gap: 6px;
 }
@@ -115,19 +115,35 @@
     box-shadow: 0px 1px 2px 0px #1018280D;
 }
 
-.cancel-btn{
+.cancel-btn {
     background-color: white;
     border: 1px solid #D0D5DD;
     color: black;
 }
 
-.submit-btn{
+.submit-btn {
     background-color: #5E5ADB;
     color: white;
     border: 1px solid #423DDB;
 }
 
-.landing-page-btns button:hover{
+.landing-page-btns button:hover {
     box-shadow: 0px 1px 4px 0px #1018286e;
     cursor: pointer;
+}
+
+.clip-loader {
+    animation: 1s linear 0s infinite normal both running react-spinners-ClipLoader-clip-noScale !important;
+}
+
+@keyframes react-spinners-ClipLoader-clip-noScale{
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

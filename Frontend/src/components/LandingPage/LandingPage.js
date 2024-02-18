@@ -10,16 +10,25 @@ import { enqueueSnackbar } from "notistack"
 import { storage } from "../../Firebase"
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { v4 } from "uuid"
+import ProgressDisc from "../ProgressDisc/ProgressDisc"
 
 function LandingPage() {
     const [popup, setPopup] = useState(false)
+    const [selectedFiles, setSelectedFiles] = useState([])
+    const [selectedUrls, setSelectedUrls] = useState([])
+    const [isChecked, setChecked] = useState(Array(selectedFiles.length).fill(true))
     const { inputFiles, setInputFiles, urls, setUrls, setInputData } = useInput()
-    const [uploadProgress, setUploadProgress] = useState(Array(inputFiles.length).fill(0));
+    const [uploadProgress, setUploadProgress] = useState(Array(selectedFiles.length).fill(0));
 
     const onDrop = (files) => {
-        const prevIndex = inputFiles.length;
-        console.log(prevIndex);
+        const prevIndex = selectedFiles.length
+        setSelectedFiles(prev=> [...prev, ...files])
         setInputFiles(prev => [...prev, ...files])
+        setChecked(prev=>{
+            const temp=Array(files.length).fill(true)
+            const newChecked=[...prev,...temp]
+            return newChecked
+        })
         handleUpload(files, prevIndex)
     }
 
@@ -37,7 +46,13 @@ function LandingPage() {
                 enqueueSnackbar(`File upload failed: ${error.message}`, { variant: "error" })
             }, () => {
                 getDownloadURL(fileRef).then((downloadURL) => {
+                    const id=urls.length
                     setUrls(prev => {
+                        const newUrls = [...prev]
+                        newUrls[i + id] = downloadURL
+                        return newUrls
+                    })
+                    setSelectedUrls(prev => {
                         const newUrls = [...prev]
                         newUrls[i + prevIndex] = downloadURL
                         return newUrls
@@ -53,7 +68,6 @@ function LandingPage() {
             newProgress[index] = progress
             return newProgress
         });
-        console.log(index)
     }
 
     const getSize = (size) => {
@@ -65,18 +79,35 @@ function LandingPage() {
         return `${Number(newSize).toFixed(0)}KB`
     }
 
-    const removeFile = (index) => {
-        setInputFiles(prev => {
-            const newItems = prev.filter((item, i) => {
-                if (i != index) return item
+    const toggleFile = (index) => {
+        if(isChecked[index]){
+            setInputFiles(prev => {
+                const newItems = [...prev]
+                newItems[index]=null
+                return newItems
             })
-            return newItems
-        })
-        setUrls(prev => {
-            const newUrls = prev.filter((url, i) => {
-                if (i != index) return url
+            setUrls(prev => {
+                const newUrls = [...prev]
+                newUrls[index]=null
+                return newUrls
             })
-            return newUrls
+        }
+        else{
+            setInputFiles(prev => {
+                const newItems = [...prev]
+                newItems[index]=selectedFiles[index]
+                return newItems
+            })
+            setUrls(prev => {
+                const newItems = [...prev]
+                newItems[index]=selectedUrls[index]
+                return newItems
+            })
+        }
+        setChecked(prev=>{
+            const newState = [...prev]
+            newState[index]=!newState[index]
+            return newState
         })
     }
 
@@ -95,8 +126,10 @@ function LandingPage() {
         }
         setPopup(true)
     }
-    console.log(urls);
-    console.log(inputFiles);
+
+    console.log(selectedUrls, selectedFiles);
+    console.log(urls, inputFiles);
+    console.log(isChecked);
 
     return (
         <section className="landing-page">
@@ -112,27 +145,29 @@ function LandingPage() {
                         }
                     </div>
                 </div>
-                {inputFiles.length > 0 && <div className="selected-files">
-                    {inputFiles?.map((item, index) => {
+                {selectedFiles.length > 0 && <div className="selected-files">
+                    {selectedFiles?.map((item, index) => {
                         return (
                             <div className="file-card" key={index} style={{
                                 position:"relative",
                             }}>
                                 {uploadProgress[index]!=100 && <div style={{position:"absolute", left:"0", width:`${uploadProgress[index]}%`, height:"100%", backgroundColor:"#F9FAFB", borderRadius:"12px"}}></div>}
                                 <div style={{ display: "flex", gap: "12px"}}>
-                                    <BiSolidFilePdf className="pdf-icon" />
+                                    <BiSolidFilePdf style={{zIndex:"5"}} className="pdf-icon" />
                                     <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                                        <span className="filename">{item.name.slice(0, 45)}</span>
-                                        <span className="filesize">{getSize(item.size)} - {uploadProgress[index]}% uploaded</span>
+                                        <span style={{zIndex:"5"}} className="filename">{item.name.slice(0, 45)}</span>
+                                        <span style={{zIndex:"5"}} className="filesize">{getSize(item.size)} - {uploadProgress[index]}% uploaded</span>
                                     </div>
                                 </div>
-                                <IoClose  onClick={() => removeFile(index)} className="remove-btn" />
+                                {uploadProgress[index]==100 ? <input type="checkbox" checked={isChecked[index]}  onChange={() => toggleFile(index)} className="remove-btn" />
+                                : <ProgressDisc />
+                                }
                             </div>
                         )
                     })}
                 </div>}
                 <div className="landing-page-btns">
-                    <button onClick={() => {setInputFiles([]); setUrls([])}} className="cancel-btn">Cancel</button>
+                    <button onClick={() => {setInputFiles([]); setUrls([]); setSelectedFiles([]); setSelectedUrls([])}} className="cancel-btn">Cancel</button>
                     <button onClick={handleSubmit} className="submit-btn">Attach files</button>
                 </div>
             </div>

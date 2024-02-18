@@ -10,6 +10,12 @@ function InputProvider({children}){
     const [urls, setUrls] = useState([]);
     const [inputFiles, setInputFiles] = useState([]);
 
+    useEffect(()=>{
+        setInputData(prev=>prev)
+        setInputFiles(prev=>prev)
+        setUrls(prev=>prev)
+    },[])
+
     return (
         <InputContext.Provider value={{inputData, setInputData, urls, setUrls, inputFiles, setInputFiles}}>
             {children}

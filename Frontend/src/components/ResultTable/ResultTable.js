@@ -16,6 +16,10 @@ function ResultTable({ data }) {
         setPopup(false)
     }
 
+    function stringAvatar(name) {
+        return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
+    }
+
     return (
         <div className="table">
             <div className='table-body'>
@@ -24,11 +28,11 @@ function ResultTable({ data }) {
                     {data.map((item, index) => {
                         return <div className='table-cells'>
                             <div className='avatar'>
-                                <div>A</div>
+                                <div>{stringAvatar(item.verdict.name)}</div>
                             </div>
                             <div className='table-name-email'>
-                                <span className='table-name' key={index}>{item.name}</span>
-                                <span className='table-email' key={index}>{item.email}</span>
+                                <span className='table-name' key={index}>{item.verdict.name}</span>
+                                <span className='table-email' key={index}>{item.verdict.email}</span>
                             </div>
                         </div>
                     })}
@@ -41,24 +45,24 @@ function ResultTable({ data }) {
                         </svg>
                     </div>
                     {data.map((item, index) => {
-                        return <div className='table-cells'><span className='table-cell-text' key={index}>{item.relevance_score}</span></div>
+                        return <div className='table-cells'><span className='table-cell-text' key={index}>{item.verdict.resume_score}</span></div>
                     })}
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", width: "121px" }}>
                     <div className='table-head'><span>Resume Link</span></div>
                     {data.map((item, index) => {
-                        return <div className='table-cells'><span className='table-cell-button' key={index}>{item.resume_link}</span></div>
+                        return <div className='table-cells'><a href={item.url} className='table-cell-button' key={index}>Link</a></div>
                     })}
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", width: "133px" }}>
                     <div className='table-head'><span></span></div>
                     {data.map((item, index) => {
-                        return <div className='table-cells'><span className='table-cell-detail' onClick={()=>openDetailModal(item)} key={index}>View Details</span></div>
+                        return <div className='table-cells'><span className='table-cell-detail' onClick={() => openDetailModal(item.verdict)} key={index}>View Details</span></div>
                     })}
                 </div>
             </div>
-            <DetailModal open={popup} toggle={closeModal} data={modalData} />
+            {modalData && <DetailModal open={popup} toggle={closeModal} data={modalData} />}
         </div>
     );
 }

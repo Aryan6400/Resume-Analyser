@@ -1,10 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import { Avatar } from '@mui/material';
 
 function Navbar() {
+  const navigate = useNavigate()
+
+  function stringAvatar(name) {
+    return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
+  }
+
   return (
     <nav className="navbar">
       <div className='nav-container'>
-        <div className='crux-logo'>
+        <div onClick={()=>navigate('/')} className='crux-logo'>
           <div></div>
           <div style={{ display: "flex" }}>
             <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +54,7 @@ function Navbar() {
           </div>
         </div>
         <div className='avatar'>
-          <div>PP</div>
+          <div>{stringAvatar('Aryan Singh')}</div>
         </div>
       </div>
     </nav>
