@@ -62,7 +62,7 @@ function ResultTable({ data, relevant }) {
                     })}
                 </div>
             </div>
-            {modalData && <DetailModal open={popup} toggle={closeModal} data={modalData} />}
+            {modalData && relevant && <DetailModal open={popup} toggle={closeModal} data={modalData} />}
         </div>
     );
 }
