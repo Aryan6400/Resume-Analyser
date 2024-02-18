@@ -54,6 +54,7 @@ function InputModal({ open, toggle }) {
             navigate('/result')
         } catch (error) {
             setLoading(false)
+            enqueueSnackbar(`Server Error: ${error.message}`, { variant: "error" })
             console.error(error)
         }
     }
