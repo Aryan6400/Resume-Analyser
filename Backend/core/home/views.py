@@ -29,7 +29,7 @@ def getScore(data):
     temp=temp/len(data["experience_score"])
     score+=temp
     max_score+=10
-    result=(score/max_score)*100
+    result=round((score/max_score)*100)
     return result
 
 def getResumeDetails(resume, role, jd):
