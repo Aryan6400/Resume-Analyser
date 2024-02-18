@@ -203,7 +203,7 @@ scoring_function = [
                     "description":"Consider relevant achievements aligned with the job description. Assign a score out of 0.5."
                 },
             },
-            "required": ["name", "email", "tech_skill_score", "soft_skill_score", "educational_score", "project_score", "experience_score", "courses_score", "achievement_score"]
+            "required": ["name", "email", "tech_skill_score", "total_score", "max_score", "soft_skill_score", "educational_score", "project_score", "experience_score", "courses_score", "achievement_score"]
         }
     }
 ]
