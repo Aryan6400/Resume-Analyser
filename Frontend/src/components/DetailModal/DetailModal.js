@@ -71,34 +71,34 @@ function DetailModal({ open, toggle, data }) {
                 {tab == 1 && <div className='detail-modal-details-container'>
                     <div style={{ alignItems: "center" }} className='detail-row'>
                         <span className='detail-row-label'>Name:</span>
-                        <span className='detail-row-value'>{data.college_detail.name}</span>
+                        <span className='detail-row-value'>{data.verdict.college_detail.name}</span>
                     </div>
                     <div style={{ alignItems: "center" }} className='detail-row'>
                         <span className='detail-row-label'>Branch:</span>
-                        <span className='detail-row-value'>{data.college_detail.branch}</span>
+                        <span className='detail-row-value'>{data.verdict.college_detail.branch}</span>
                     </div>
                     <div style={{ alignItems: "center" }} className='detail-row'>
                         <span className='detail-row-label'>Degree:</span>
-                        <span className='detail-row-value'>{data.college_detail.degree}</span>
+                        <span className='detail-row-value'>{data.verdict.college_detail.degree}</span>
                     </div>
                     <div style={{ alignItems: "center" }} className='detail-row'>
                         <span className='detail-row-label'>CGPA:</span>
-                        <span className='detail-row-value'>{data.college_detail.cgpa}</span>
+                        <span className='detail-row-value'>{data.verdict.college_detail.cgpa}</span>
                     </div>
                     <div style={{ alignItems: "center" }} className='detail-row'>
                         <span className='detail-row-label'>Start:</span>
-                        <span className='detail-row-value'>{data.college_detail.start}</span>
+                        <span className='detail-row-value'>{data.verdict.college_detail.start}</span>
                     </div>
                     <div style={{ alignItems: "center" }} className='detail-row'>
                         <span className='detail-row-label'>End:</span>
-                        <span className='detail-row-value'>{data.college_detail.end}</span>
+                        <span className='detail-row-value'>{data.verdict.college_detail.end}</span>
                     </div>
                 </div>}
 
 
 
                 {tab == 2 && <div className='project-detail'>
-                    {data.projects.map((project, index) => {
+                    {data.verdict.projects.map((project, index) => {
                         return (
                             <>
                                 <div key={index} className='project-container'>
@@ -140,7 +140,7 @@ function DetailModal({ open, toggle, data }) {
 
 
                 {tab == 3 && <div className='experience-detail'>
-                    {data.professional_experience.map((exp, index) => {
+                    {data.verdict.professional_experience.map((exp, index) => {
                         return (
                             <>
                                 <div key={index} className='project-container'>

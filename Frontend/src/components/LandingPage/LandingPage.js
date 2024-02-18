@@ -1,5 +1,4 @@
 import { LuUploadCloud } from "react-icons/lu"
-import { IoClose } from "react-icons/io5"
 import { BiSolidFilePdf } from "react-icons/bi"
 import './LandingPage.css'
 import { useInput } from "../../context/InputContext"

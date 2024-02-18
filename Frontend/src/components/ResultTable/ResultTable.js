@@ -2,7 +2,7 @@ import { useState } from 'react';
 import DetailModal from '../DetailModal/DetailModal';
 import './ResultTable.css';
 
-function ResultTable({ data }) {
+function ResultTable({ data, relevant }) {
     const [modalData, setModalData] = useState(null);
     const [popup, setPopup] = useState(false)
 
@@ -28,11 +28,11 @@ function ResultTable({ data }) {
                     {data.map((item, index) => {
                         return <div className='table-cells'>
                             <div className='avatar'>
-                                <div>{stringAvatar(item.verdict.name)}</div>
+                                <div>{stringAvatar(item.name)}</div>
                             </div>
                             <div className='table-name-email'>
-                                <span className='table-name' key={index}>{item.verdict.name}</span>
-                                <span className='table-email' key={index}>{item.verdict.email}</span>
+                                <span className='table-name' key={index}>{item.name}</span>
+                                <span className='table-email' key={index}>{item.email}</span>
                             </div>
                         </div>
                     })}
@@ -45,7 +45,7 @@ function ResultTable({ data }) {
                         </svg>
                     </div>
                     {data.map((item, index) => {
-                        return <div className='table-cells'><span className='table-cell-text' key={index}>{item.verdict.resume_score}</span></div>
+                        return <div className='table-cells'><span className='table-cell-text' key={index}>{item.score}</span></div>
                     })}
                 </div>
 
@@ -58,7 +58,7 @@ function ResultTable({ data }) {
                 <div style={{ display: "flex", flexDirection: "column", width: "133px" }}>
                     <div className='table-head'><span></span></div>
                     {data.map((item, index) => {
-                        return <div className='table-cells'><span className='table-cell-detail' onClick={() => openDetailModal(item.verdict)} key={index}>View Details</span></div>
+                        return <div className='table-cells'><span className='table-cell-detail' onClick={()=>openDetailModal(item)} key={index}>{relevant ? 'View Details' : null}</span></div>
                     })}
                 </div>
             </div>

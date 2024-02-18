@@ -37,10 +37,10 @@ function InputModal({ open, toggle }) {
             const result = await response.json()
             console.log(result)
             const relevant = result.filter((item) => {
-                if (item.verdict.resume_score >= 70) return item
+                if (item.score >= 70) return item
             })
             const notRelevant = result.filter((item) => {
-                if (item.verdict.resume_score < 70) return item
+                if (item.score < 70) return item
             })
             setRelevantData(relevant)
             setNotRelevantData(notRelevant)

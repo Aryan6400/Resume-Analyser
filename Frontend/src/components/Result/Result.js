@@ -22,7 +22,7 @@ function Result() {
                         <p className='result-supporting-text'>Resumes fit for the Job role</p>
                     </div>
                     <div className='result-body-content'>
-                        {relevantData.length>0 && <ResultTable data={relevantData} />}
+                        {relevantData.length>0 && <ResultTable data={relevantData} relevant={true} />}
                     </div>
                 </div>
                 <Divider />
@@ -32,7 +32,7 @@ function Result() {
                         <p className='result-supporting-text'>Resumes that don't fit for the Job role</p>
                     </div>
                     <div className='result-body-content'>
-                        {notRelevantData.length>0 && <ResultTable data={notRelevantData} />}
+                        {notRelevantData.length>0 && <ResultTable data={notRelevantData} relevant={false} />}
                     </div>
                 </div>
             </div>
