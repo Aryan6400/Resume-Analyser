@@ -1,9 +1,6 @@
-Python Dependencies:
-
-1. pipenv - For virtual environment
-2. Django
-3. Django-Rest-Framework
-4. django-cors-headers
-5. PYPDF2
-6. openai
-7. python-dotenv
+Django
+Django-Rest-Framework
+django-cors-headers
+PYPDF2
+openai
+python-dotenv
